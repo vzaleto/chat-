@@ -1,13 +1,11 @@
-import Chat from "./components/Chat.tsx";
-import Register from "./components/Register.tsx";
-import Login from "./components/Login.tsx";
+import {Outlet} from "react-router-dom";
 
 const App = () => {
     return (
         <div>
-            <Register/>
-            <Login/>
-            <Chat/>
+            <h2>header</h2>
+            <Outlet/>
+            <h2>footer</h2>
         </div>
     );
 };
