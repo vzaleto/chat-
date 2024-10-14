@@ -4,7 +4,7 @@ interface Messages{
     _id?:string
     content:string,
     sender:string,
-
+    timestamp: Date
 }
 
 interface ChatState{
@@ -19,13 +19,13 @@ const chatSlice = createSlice({
     name:'chat',
     initialState,
     reducers:{
-        addMessage:(state, action: PayloadAction<Messages>) => {
-            state.messages.push(action.payload)
-        },
         setMessage: (state, action: PayloadAction<Messages[]>) => {
             state.messages = action.payload
+        },
+        addMessage: (state, action: PayloadAction<Messages>) => {
+            state.messages.push(action.payload)
         }
     }
 })
 export default chatSlice.reducer
-export const {addMessage, setMessage} = chatSlice.actions
+export const {setMessage, addMessage} = chatSlice.actions
