@@ -1,21 +1,27 @@
-import {FormEvent, useState} from 'react';
+import {FormEvent, useEffect, useState} from 'react';
 import {fetchLogin} from "../redux/user/authSlice.ts";
-import {AppDispatch} from "../redux/store.ts";
-import {useDispatch} from "react-redux";
+import {AppDispatch, RootState} from "../redux/store.ts";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch<AppDispatch>();
+    const {status} = useSelector((state:RootState) => state.auth);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (status === 'succeeded' && localStorage.getItem('authToken')) {
+            navigate('/chat')
+        }
+    }, [status]);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         dispatch(fetchLogin({username, password}))
         setUsername('')
         setPassword('')
-        navigate('/chat')
     }
 
 
